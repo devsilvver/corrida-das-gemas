@@ -12,8 +12,6 @@ interface DeckManagementScreenProps {
   onBack: () => void;
   selectedDeckIndex: number | null;
   onSelectDeck: (index: number) => void;
-  isGuestInLobby?: boolean;
-  onConfirmDeckForLobby?: (deck: Character[]) => void;
 }
 
 const rarityTranslation: { [key in Rarity]: string } = {
@@ -61,11 +59,8 @@ const DeckSlot: React.FC<{
     );
 };
 
-const DeckManagementScreen: React.FC<DeckManagementScreenProps> = ({ allCharacters, savedDecks, onSaveDecks, onBack, selectedDeckIndex, onSelectDeck, isGuestInLobby, onConfirmDeckForLobby }) => {
-    const [editingSlot, setEditingSlot] = useState<number | null>(() => {
-        // If guest, automatically open the first slot for editing
-        return isGuestInLobby ? 0 : null;
-    });
+const DeckManagementScreen: React.FC<DeckManagementScreenProps> = ({ allCharacters, savedDecks, onSaveDecks, onBack, selectedDeckIndex, onSelectDeck }) => {
+    const [editingSlot, setEditingSlot] = useState<number | null>(null);
     const [currentDeck, setCurrentDeck] = useState<Character[]>([]);
 
     const handleEditSlot = (index: number) => {
@@ -109,16 +104,16 @@ const DeckManagementScreen: React.FC<DeckManagementScreenProps> = ({ allCharacte
     if (editingSlot !== null) {
         return (
             <div className="w-full max-w-4xl h-[90vh] bg-slate-800/80 rounded-lg p-4 flex flex-col">
-                <h2 className="text-center text-3xl font-bold text-yellow-300 mb-2">{isGuestInLobby ? "Monte seu Deck para a Batalha" : `Editando Deck ${editingSlot + 1}`}</h2>
+                <h2 className="text-center text-3xl font-bold text-yellow-300 mb-2">{`Editando Deck ${editingSlot + 1}`}</h2>
                  <div className="flex-grow overflow-y-auto pr-2">
                     {Object.values(Rarity).reverse().map(rarity => renderCharacterList(rarity))}
                 </div>
                 <div className="mt-4 flex flex-col items-center">
                     <p className="text-lg mb-2">Selecionados: {currentDeck.length} / {DECK_SIZE}</p>
                     <div className="flex w-full max-w-xs gap-2">
-                        {!isGuestInLobby && <button onClick={() => setEditingSlot(null)} className="flex-1 bg-slate-600 hover:bg-slate-700 text-white font-bold py-3 px-4 rounded-lg text-lg transition-colors">Voltar</button>}
-                        <button onClick={isGuestInLobby ? () => onConfirmDeckForLobby!(currentDeck) : handleSaveDeck} disabled={currentDeck.length !== DECK_SIZE} className="flex-1 bg-green-600 hover:bg-green-700 disabled:bg-gray-500 text-white font-bold py-3 px-4 rounded-lg text-lg transition-colors">
-                            {isGuestInLobby ? 'Entrar no Lobby' : 'Salvar'}
+                        <button onClick={() => setEditingSlot(null)} className="flex-1 bg-slate-600 hover:bg-slate-700 text-white font-bold py-3 px-4 rounded-lg text-lg transition-colors">Voltar</button>
+                        <button onClick={handleSaveDeck} disabled={currentDeck.length !== DECK_SIZE} className="flex-1 bg-green-600 hover:bg-green-700 disabled:bg-gray-500 text-white font-bold py-3 px-4 rounded-lg text-lg transition-colors">
+                            Salvar
                         </button>
                     </div>
                 </div>

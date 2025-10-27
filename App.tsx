@@ -12,6 +12,26 @@ import { p2pService } from './p2p';
 export type GamePhase = 'home' | 'deck-management' | 'playing' | 'game-over' | 'lobby';
 export type GameMode = 'pve' | 'pvp' | 'training';
 
+const PvpModal: React.FC<{onHost: () => void, onJoin: () => void, onClose: () => void}> = ({ onHost, onJoin, onClose }) => (
+    <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
+        <div className="bg-slate-800 rounded-lg p-8 border border-slate-600 shadow-xl text-center">
+            <h2 className="text-2xl font-bold text-yellow-300 mb-6">Jogar PvP Online</h2>
+            <div className="flex flex-col gap-4">
+                <button onClick={onHost} className="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-lg text-xl transition-transform transform hover:scale-105">
+                    Criar Lobby
+                </button>
+                <button onClick={onJoin} className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-lg text-xl transition-transform transform hover:scale-105">
+                    Entrar no Lobby
+                </button>
+            </div>
+             <button onClick={onClose} className="mt-8 text-slate-400 hover:text-white transition-colors">
+                Cancelar
+            </button>
+        </div>
+    </div>
+);
+
+
 const App: React.FC = () => {
     const [gamePhase, setGamePhase] = useState<GamePhase>('home');
     const [gameMode, setGameMode] = useState<GameMode>('pve');
@@ -40,6 +60,8 @@ const App: React.FC = () => {
     // PvP Lobby State
     const [lobbyId, setLobbyId] = useState<string | null>(null);
     const [isHost, setIsHost] = useState<boolean | null>(null);
+    const [isPvpModalOpen, setPvpModalOpen] = useState(false);
+
 
     useEffect(() => {
         try {
@@ -62,16 +84,6 @@ const App: React.FC = () => {
             }
         } catch (error) {
             console.error("Failed to load data from localStorage", error);
-        }
-        
-        const urlParams = new URLSearchParams(window.location.search);
-        const lobbyParam = urlParams.get('lobby');
-        if (lobbyParam) {
-            setLobbyId(lobbyParam);
-            setIsHost(false); // Guest joins from a link
-            setGamePhase('deck-management'); 
-            // Clean URL to avoid confusion on refresh
-            window.history.replaceState({}, document.title, window.location.pathname);
         }
     }, []);
 
@@ -130,23 +142,31 @@ const App: React.FC = () => {
         setGamePhase('playing');
     };
     
-    const handleStartPvpLobby = () => {
+    const handleOpenPvpModal = () => {
         if (selectedDeckIndex === null || !savedDecks[selectedDeckIndex] || savedDecks[selectedDeckIndex].length !== DECK_SIZE) {
-            alert("Por favor, selecione um deck válido antes de criar um lobby PvP.");
+            alert("Por favor, selecione um deck válido antes de entrar no modo PvP.");
             return;
         }
-        const deck = savedDecks[selectedDeckIndex];
-        setPlayerDeck(deck);
+        setPvpModalOpen(true);
+    };
 
+    const handleHostLobby = () => {
+        const deck = savedDecks[selectedDeckIndex!];
+        setPlayerDeck(deck);
         const newLobbyId = `gemrush_${Date.now()}`;
         setLobbyId(newLobbyId);
         setIsHost(true);
         setGamePhase('lobby');
+        setPvpModalOpen(false);
     };
 
-    const handleConfirmDeckForLobby = (deck: Character[]) => {
+    const handleJoinLobby = () => {
+        const deck = savedDecks[selectedDeckIndex!];
         setPlayerDeck(deck);
+        setIsHost(false);
+        setLobbyId('joining'); // Placeholder
         setGamePhase('lobby');
+        setPvpModalOpen(false);
     };
 
     const handleEndGame = () => {
@@ -154,6 +174,8 @@ const App: React.FC = () => {
         setPlayerDeck([]);
         p2pService.closeConnection();
         resetGameState();
+        setLobbyId(null);
+        setIsHost(null);
     };
 
     // Game Over Logic
@@ -174,9 +196,9 @@ const App: React.FC = () => {
 
         switch(gamePhase) {
             case 'home':
-                return <HomeScreen onNavigate={navigateTo} onStartGame={handleStartGame} onStartPvpLobby={handleStartPvpLobby} canPlay={canPlay} />;
+                return <HomeScreen onNavigate={navigateTo} onStartGame={handleStartGame} onStartPvpLobby={handleOpenPvpModal} canPlay={canPlay} />;
             case 'deck-management':
-                return <DeckManagementScreen allCharacters={CHARACTERS} savedDecks={savedDecks} onSaveDecks={handleSaveDecks} onBack={() => navigateTo('home')} selectedDeckIndex={selectedDeckIndex} onSelectDeck={handleSelectDeck} isGuestInLobby={!isHost && !!lobbyId} onConfirmDeckForLobby={handleConfirmDeckForLobby} />;
+                return <DeckManagementScreen allCharacters={CHARACTERS} savedDecks={savedDecks} onSaveDecks={handleSaveDecks} onBack={() => navigateTo('home')} selectedDeckIndex={selectedDeckIndex} onSelectDeck={handleSelectDeck} />;
             case 'lobby':
                 return <LobbyScreen 
                     lobbyId={lobbyId!} 
@@ -191,6 +213,7 @@ const App: React.FC = () => {
                     onBack={() => {
                         setLobbyId(null);
                         setIsHost(null);
+                        p2pService.closeConnection();
                         setGamePhase('home');
                     }}
                 />
@@ -225,7 +248,7 @@ const App: React.FC = () => {
             case 'game-over':
                 return <GameOverModal winner={winner} onPlayAgain={handleEndGame} />;
             default:
-                return <HomeScreen onNavigate={navigateTo} onStartGame={handleStartGame} onStartPvpLobby={handleStartPvpLobby} canPlay={canPlay} />;
+                return <HomeScreen onNavigate={navigateTo} onStartGame={handleStartGame} onStartPvpLobby={handleOpenPvpModal} canPlay={canPlay} />;
         }
     }
 
@@ -233,6 +256,7 @@ const App: React.FC = () => {
         <div 
             className="w-screen h-screen bg-slate-900 flex flex-col items-center justify-center p-2"
         >
+            {isPvpModalOpen && <PvpModal onHost={handleHostLobby} onJoin={handleJoinLobby} onClose={() => setPvpModalOpen(false)} />}
             <div className="w-full h-full flex flex-col items-center justify-center">
                 {gamePhase === 'home' && (
                     <h1 className="text-3xl md:text-5xl font-bold text-yellow-400 mb-4 tracking-wider" style={{textShadow: '0 0 10px #facc15, 0 0 20px #facc15'}}>
