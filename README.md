@@ -1,74 +1,91 @@
-<div align="center">
-  <img src="img/meu_banner.png" alt="Banner Guilherme Silvestrini" />
-</div>
-<br>
+# 💎 Corrida das Gemas
 
-<h1 align="center">
-  Olá! 👋 Eu sou o Guilherme Silvestrini
-</h1>
-<p align="center">
-  Um Desenvolvedor Front-end focado em transformar ideias em experiências digitais intuitivas e performáticas.
-</p>
+![Status](https://img.shields.io/badge/Status-Descontinuado-red?style=for-the-badge)
+![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)
 
-## 👨‍💻 Sobre Mim
-<p>
-  Sou um entusiasta de tecnologia e programação, sempre buscando aprender novas ferramentas e aprimorar minhas habilidades para criar soluções web modernas e eficientes.
-<br><br>
-  🌱 Atualmente estou focado em... <strong>[React e TypeScript]</strong>
-  <br>
-  💡 Tenho interesse em... <strong>[UI/UX Design, Animações Web, Back-end com Node.js]</strong>
-  <br>
-  📫 Você pode me encontrar em: <strong>[Votuporanga-SP]</strong>
-</p>
+> ⚠️ **PROJETO ARQUIVADO:** Este projeto foi iniciado como um estudo de mecânicas de jogos e multiplayer, mas seu desenvolvimento foi interrompido. O código está disponível para consulta e referência, mas não receberá novas atualizações.
 
-## 🛠️ Minhas Ferramentas e Tecnologias
+### 🎮 Sobre o Projeto
 
-Aqui estão algumas das tecnologias com as quais eu trabalho:
+**Corrida das Gemas** é um jogo de *Tower Defense* competitivo inspirado em **Rush Royale**.
 
-<p align="center">
-  <a href="https://developer.mozilla.org/pt-BR/docs/Web/JavaScript" target="_blank">
-    <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript">
-  </a>
-  <a href="https://www.typescriptlang.org/" target="_blank">
-    <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript">
-  </a>
-  <a href="https://react.dev/" target="_blank">
-    <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React">
-  </a>
-  <a href="https://nextjs.org/" target="_blank">
-    <img src="https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white" alt="Next.js">
-  </a>
-  <a href="https://developer.mozilla.org/pt-BR/docs/Web/HTML" target="_blank">
-    <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML5">
-  </a>
-  <a href="https://developer.mozilla.org/pt-BR/docs/Web/CSS" target="_blank">
-    <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS3">
-  </a>
-  <a href="https://tailwindcss.com/" target="_blank">
-    <img src="https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind CSS">
-  </a>
-  <a href="https://git-scm.com/" target="_blank">
-    <img src="https://img.shields.io/badge/Git-E34F26?style=for-the-badge&logo=git&logoColor=white" alt="Git">
-  </a>
-</p>
-## 📊 Minhas Estatísticas no GitHub
+O objetivo era criar um jogo de estratégia em tempo real onde jogadores montam baralhos de heróis, invocam unidades no tabuleiro e realizam fusões (*merge*) para aumentar o poder de defesa contra ondas de inimigos.
 
-<div align="center">
-  <img height="180em" src="https://github-readme-stats.vercel.app/api?username=devsilvver&show_icons=true&theme=tokyonight&include_all_commits=true&count_private=true"/>
-  <img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=devsilvver&layout=compact&langs_count=7&theme=tokyonight"/>
-</div>
+### ✨ Funcionalidades Implementadas
 
+Apesar de não finalizado, o projeto conta com sistemas complexos funcionais:
 
-## 📫 Entre em Contato
+* **⚔️ Modos de Jogo:**
+    * **PvP Online (P2P):** Implementação de WebRTC para batalhas em tempo real entre jogadores.
+    * **PvE / Campanha:** Lógica de ondas de inimigos e chefes.
+    * **Modo Treino:** Recursos infinitos para testar combinações.
+* **🃏 Sistema de Deck:**
+    * Gerenciamento de múltiplos baralhos.
+    * Seleção de heróis com diferentes raridades (Comum, Raro, Épico, Lendário).
+* **🎲 Mecânicas de Jogo:**
+    * **Sistema de Merge:** Fusão de unidades para subir de nível.
+    * **Habilidades Especiais:** Lógica para unidades únicas como *Cultista* (bônus por adjacência), *Fada do Bosque* (merge universal) e *Bobo da Corte* (cópia).
 
-Conecte-se comigo ou me envie uma mensagem:
+---
 
-<p align="center">
-  <a href="https://www.linkedin.com/in/guilherme-silvestrini-782226233/" target="_blank">
-    <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn">
-  </a>
-  &nbsp;
-  <a href="mailto:contatosilvestrini@gmail.com" target="_blank">
-    <img src="https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Email">
-  </a>
-</p>
+### 🛠️ Tecnologias Utilizadas
+
+* **[React 19](https://react.dev/)**
+* **[TypeScript](https://www.typescriptlang.org/)**
+* **[Vite](https://vitejs.dev/)**
+* **[Tailwind CSS](https://tailwindcss.com/)**
+* **[WebRTC](https://webrtc.org/)** (Para comunicação Peer-to-Peer no PvP)
+
+---
+
+### 🚀 Como rodar (Para curiosos)
+
+Se você quiser testar o que foi construído até agora:
+
+#### 1. Clone o repositório
+```bash
+git clone [https://github.com/devsilvver/corrida-das-gemas.git](https://github.com/devsilvver/corrida-das-gemas.git)
+cd corrida-das-gemas
+```
+
+#### 2. Instale as dependências
+```bash
+npm install
+```
+
+#### 3. Configure o Ambiente
+Crie um arquivo `.env` na raiz (necessário apenas se for usar recursos que pedem API Key, como IA, caso contrário o jogo roda localmente):
+```env
+GEMINI_API_KEY="sua-chave-opcional"
+```
+
+#### 4. Rode o projeto
+```bash
+npm run dev
+```
+
+---
+
+### 📂 Estrutura do Projeto
+
+```text
+src/
+├── components/        # Componentes do jogo (Tabuleiro, Cartas, UI)
+├── p2p.ts            # Lógica de conexão WebRTC para o Multiplayer
+├── types.ts          # Definições de tipos (Unidades, Inimigos)
+├── constants.tsx     # Configuração dos Personagens e Balanceamento
+└── App.tsx           # Gerenciamento de estados globais do jogo
+```
+
+---
+
+### 👤 Autor
+
+Feito por **Guilherme Silvestrini**.
+
+<a href="https://www.linkedin.com/in/guilherme-silvestrini-782226233/" target="_blank">
+ <img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank">
+</a>
+<a href="mailto:contatosilvestrini@gmail.com">
+ <img src="https://img.shields.io/badge/-Gmail-%23D14836?style=for-the-badge&logo=gmail&logoColor=white" target="_blank">
+</a>
