@@ -11,7 +11,6 @@ export const CHARACTERS: Character[] = [
   // Épicos
   { id: 'EPI_01', name: 'Arqueiro Arcano', rarity: Rarity.Epic, description: 'Dispara flechas perfurantes que atingem múltiplos inimigos em linha.', icon: <ArcaneArcherIcon />, baseDamage: 120 },
   { id: 'EPI_02', name: 'Guardião Golem', rarity: Rarity.Epic, description: 'HP alto. Atordoa inimigos próximos ao ser fundido.', icon: <GolemGuardianIcon />, baseDamage: 90 },
-  // Fix: Corrected typo in abilityId for TeleportMageIcon.
   { id: 'EPI_03', name: 'Mago do Teleporte', rarity: Rarity.Epic, description: 'Pode trocar de lugar com outra unidade do mesmo nível.', icon: <TeleportMageIcon />, baseDamage: 50, abilityId: 'TELEPORT_MAGE' },
   // Raros
   { id: 'RAR_01', name: 'Mago de Gelo', rarity: Rarity.Rare, description: 'Atrasa alvos únicos.', icon: <FrostMageIcon />, baseDamage: 55 },
@@ -41,17 +40,12 @@ export const SHIELDED_ENEMY_BASE_HP = 400;
 export const BOSS_BASE_HP = 20000;
 export const SHIELDED_ENEMY_DAMAGE_REDUCTION = 0.5; // Recebe 50% menos dano
 
-// Coordinate system for paths. A value of -0.5 corresponds to the top/left edge of the grid,
-// and BOARD_DIM - 0.5 corresponds to the bottom/right edge.
-// We add padding to move the path outside the grid borders.
 const PATH_PADDING = 0.4;
 const BORDER_X_START = -0.5 - PATH_PADDING;
 const BORDER_Y_START = -0.5 - PATH_PADDING;
 const BORDER_X_END = BOARD_COLS - 0.5 + PATH_PADDING;
 const BORDER_Y_END = BOARD_ROWS - 0.5 + PATH_PADDING;
 
-
-// Player's path around the board.
 export const PLAYER_ARENA_PATH: { x: number; y: number }[] = [
     { x: BORDER_X_START, y: BORDER_Y_END },   // Start: bottom-left
     { x: BORDER_X_START, y: BORDER_Y_START },  // Corner: top-left
@@ -59,7 +53,6 @@ export const PLAYER_ARENA_PATH: { x: number; y: number }[] = [
     { x: BORDER_X_END, y: BORDER_Y_END },    // End: bottom-right portal
 ];
 
-// Opponent's path around the board.
 export const OPPONENT_ARENA_PATH: { x: number; y: number }[] = [
     { x: BORDER_X_START, y: BORDER_Y_START },  // Start: top-left
     { x: BORDER_X_START, y: BORDER_Y_END },   // Corner: bottom-left
