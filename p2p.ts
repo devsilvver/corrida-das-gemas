@@ -26,7 +26,6 @@ export const p2pService = {
         await peerConnection.setLocalDescription(offer);
 
         return new Promise<string>((resolve) => {
-            // Wait for ICE gathering to complete to get the full offer.
             peerConnection!.onicegatheringstatechange = () => {
                 if (peerConnection!.iceGatheringState === 'complete') {
                     resolve(JSON.stringify(peerConnection!.localDescription));
@@ -53,7 +52,6 @@ export const p2pService = {
         await peerConnection.setLocalDescription(answer);
         
         return new Promise<string>((resolve) => {
-            // Wait for ICE gathering to complete to get the full answer.
             peerConnection!.onicegatheringstatechange = () => {
                 if (peerConnection!.iceGatheringState === 'complete') {
                     resolve(JSON.stringify(peerConnection!.localDescription));
