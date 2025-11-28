@@ -12,7 +12,6 @@ export interface Character {
   name: string;
   rarity: Rarity;
   description: string;
-  // Fix: Replaced JSX.Element with React.ReactElement to resolve "Cannot find namespace 'JSX'" error in a .ts file.
   icon: React.ReactElement;
   baseDamage: number;
   abilityId?: 'CULTIST' | 'TELEPORT_MAGE' | 'FOREST_FAIRY' | 'JESTER' | 'PRIESTESS';
