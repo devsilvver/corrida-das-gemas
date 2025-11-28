@@ -1,4 +1,3 @@
-// A service to encapsulate WebRTC logic for peer-to-peer communication.
 export type P2PMessage = {
     type: string;
     payload?: any;
@@ -9,7 +8,6 @@ let dataChannel: RTCDataChannel | null = null;
 let onMessageCallback: ((message: P2PMessage) => void) | null = null;
 let onConnectionStateChangeCallback: ((state: 'open' | 'closed') => void) | null = null;
 
-// Use a public STUN server to help establish connections.
 const configuration = {
     iceServers: [{ urls: 'stun:stun.l.google.com:19302' }]
 };
